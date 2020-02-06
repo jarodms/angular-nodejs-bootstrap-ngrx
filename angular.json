@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "angular-nodejs-bootstrap-temp": {
+        "angular-nodejs-bootstrap": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
@@ -17,7 +17,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "outputPath": "dist/angular-nodejs-bootstrap-temp",
+                        "outputPath": "dist/angular-nodejs-bootstrap",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
@@ -65,18 +65,18 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "angular-nodejs-bootstrap-temp:build"
+                        "browserTarget": "angular-nodejs-bootstrap:build"
                     },
                     "configurations": {
                         "production": {
-                            "browserTarget": "angular-nodejs-bootstrap-temp:build:production"
+                            "browserTarget": "angular-nodejs-bootstrap:build:production"
                         }
                     }
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "angular-nodejs-bootstrap-temp:build"
+                        "browserTarget": "angular-nodejs-bootstrap:build"
                     }
                 },
                 "test": {
@@ -113,16 +113,16 @@
                     "builder": "@angular-devkit/build-angular:protractor",
                     "options": {
                         "protractorConfig": "e2e/protractor.conf.js",
-                        "devServerTarget": "angular-nodejs-bootstrap-temp:serve"
+                        "devServerTarget": "angular-nodejs-bootstrap:serve"
                     },
                     "configurations": {
                         "production": {
-                            "devServerTarget": "angular-nodejs-bootstrap-temp:serve:production"
+                            "devServerTarget": "angular-nodejs-bootstrap:serve:production"
                         }
                     }
                 }
             }
         }
     },
-    "defaultProject": "angular-nodejs-bootstrap-temp"
+    "defaultProject": "angular-nodejs-bootstrap"
 }

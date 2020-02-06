@@ -1,3 +1,25 @@
+# Fully contained 'db', server and app
+Run all three to have a fully contained app.
+## DB
+`npm run db`
+
+The 'DB' is a JSON file named `db.json`. Data is retrieved and stored in this file. View the JSON server and it's data at `http://localhost:3000/` 
+
+## NodeJS server
+`npm run server`
+
+The file `server.js` is our Node server for our REST API. The web services (used within the Angular app) are located at `http://localhost:8000/api`
+
+
+## Angular app
+start the Angular app with `npm serve`
+
+Start the Angular app and goto `http://localhost:4200/`
+
+
+
+
+############################################################
 # AngularNodejsBootstrapTemp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.2.

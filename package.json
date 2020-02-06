@@ -6,8 +6,11 @@
         "start": "ng serve",
         "build": "ng build",
         "test": "ng test",
+        "test-report": "ng test --watch=false --code-coverage",
         "lint": "ng lint",
-        "e2e": "ng e2e"
+        "e2e": "ng e2e",
+        "db": "json-server db.json",
+        "server": "nodemon server.js"
     },
     "private": true,
     "dependencies": {
@@ -21,6 +24,10 @@
         "@angular/router": "~8.2.4",
         "@ng-bootstrap/ng-bootstrap": "^5.1.4",
         "bootstrap": "^4.4.1",
+        "express": "^4.17.1",
+        "express-validator": "^6.3.1",
+        "helmet": "^3.21.2",
+        "json-server": "^0.15.1",
         "rxjs": "~6.4.0",
         "tslib": "^1.10.0",
         "zone.js": "~0.9.1"
@@ -30,9 +37,9 @@
         "@angular/cli": "~8.3.2",
         "@angular/compiler-cli": "~8.2.4",
         "@angular/language-service": "~8.2.4",
-        "@types/node": "~8.9.4",
         "@types/jasmine": "~3.3.8",
         "@types/jasminewd2": "~2.0.3",
+        "@types/node": "~8.9.4",
         "codelyzer": "^5.0.0",
         "jasmine-core": "~3.4.0",
         "jasmine-spec-reporter": "~4.2.1",
@@ -41,6 +48,7 @@
         "karma-coverage-istanbul-reporter": "~2.0.1",
         "karma-jasmine": "~2.0.1",
         "karma-jasmine-html-reporter": "^1.4.0",
+        "nodemon": "^2.0.2",
         "protractor": "~5.4.0",
         "ts-node": "~7.0.0",
         "tslint": "~5.15.0",

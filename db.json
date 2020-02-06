@@ -1,0 +1,40 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "title": "test 1",
+      "description": "Here is the description 1",
+      "status": "todo"
+    },
+    {
+      "title": "test 2",
+      "description": "Make sure I do this and that today",
+      "status": "done",
+      "id": 2
+    },
+    {
+      "title": "Workout",
+      "description": "Today is cardio day",
+      "status": "todo",
+      "id": 3
+    }
+  ],
+  "category": [
+    {
+      "id": 1,
+      "name": "Work"
+    },
+    {
+      "id": 2,
+      "name": "Home"
+    },
+    {
+      "id": 3,
+      "name": "Health"
+    },
+    {
+      "id": 4,
+      "name": "General"
+    }
+  ]
+}
