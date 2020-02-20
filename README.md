@@ -1,5 +1,24 @@
 # Fully contained 'db', server and app
-Run all three to have a fully contained app.
+This is not meant to be a full. amazing, awesome app....just an example.
+
+## Get Started
+After cloning/downloading source, run:
+
+`npm install`
+
+
+Run all three (DB, NodeJS server, and App) to have a fully contained and running app.
+
+`npm run start-dev`
+
+### Goto http://localhost:4200/ to view the running app. 
+1) Add a ToDo item with a description
+2) ToDo's not complete are marked as Green
+3) ToDo's that are complete have a grey background 
+4) Delete any ToDo you don't need any more
+5) ToDo's are saved in the `db.json` file, so restarting the app will load your previous ToDo's
+
+# The Pieces
 ## DB
 `npm run db`
 
@@ -20,7 +39,7 @@ Start the Angular app and goto `http://localhost:4200/`
 
 
 ############################################################
-# AngularNodejsBootstrapTemp
+# AngularNodejsBootstrap
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.2.
 
