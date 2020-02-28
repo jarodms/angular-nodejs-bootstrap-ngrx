@@ -40,16 +40,21 @@ Start the Angular app and goto `http://localhost:4200/`
 ############################################################
 # ngrx Commands used
 ## TODO: more documenation here
-npm install @ngrx/schematics --save-dev
-npm install @ngrx/store-devtools --save-dev
+`npm install @ngrx/schematics --save-dev`
 
-npm install @ngrx/store
-ng generate @ngrx/schematics:store State --root --module app.module.ts
-ng g @ngrx/schematics:reducer Todos --group
-ng g @ngrx/schematics:action Todo --group
+`npm install @ngrx/store-devtools --save-dev`
 
-npm install @ngrx/effects
-ng g @ngrx/schematics:effect Todo --group --root
+`npm install @ngrx/store`
+
+`ng generate @ngrx/schematics:store State --root --module app.module.ts`
+
+`ng g @ngrx/schematics:reducer Todos --group`
+
+`ng g @ngrx/schematics:action Todo --group`
+
+`npm install @ngrx/effects`
+
+`ng g @ngrx/schematics:effect Todo --group --root`
 
 ############################################################
 # AngularNodejsBootstrap
