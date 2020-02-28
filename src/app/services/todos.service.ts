@@ -8,7 +8,6 @@ import { Todo } from '../Todo';
   providedIn: 'root'
 })
 export class TodosService {
-  // api = 'http://localhost:8000/api';
 
   httpHeaders = new HttpHeaders({
     'Content-Type' : 'application/json'
@@ -25,17 +24,17 @@ export class TodosService {
 
   addTodo(todo: Todo) {
     console.log(todo);
-    return this.httpClient.post(`${environment.api}/todo`, todo).pipe(catchError(this.handleError)).toPromise();
+    return this.httpClient.post(`${environment.api}/todo`, todo).pipe(catchError(this.handleError));
   }
 
-  deleteTodo(id: number) {
-    console.log('deleteTodo service: ' + id);
-    return this.httpClient.delete(`${environment.api}/todo/${id}`).pipe(catchError(this.handleError)).toPromise();
+  deleteTodo(todo: Todo) {
+    console.log('deleteTodo service: ' + todo.id);
+    return this.httpClient.delete(`${environment.api}/todo/${todo.id}`).pipe(catchError(this.handleError));
   }
 
   completeTodo(todo: Todo) {
-    // console.log('completeTodo service: ' + id);
-    return this.httpClient.put(`${environment.api}/todo`, todo).pipe(catchError(this.handleError)).toPromise();
+    console.log(todo);
+    return this.httpClient.put(`${environment.api}/todo`, todo).pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {
