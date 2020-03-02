@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of, EMPTY } from 'rxjs';
-import { mergeMap, catchError, map, pluck, switchMap } from 'rxjs/operators';
+import { mergeMap, catchError, map } from 'rxjs/operators';
 import { TodoActionTypes, AddTodo, AddTodoSuccess, LoadTodos, LoadTodosSuccess,
   LoadTodosFailure, CompleteTodoSuccess, CompleteTodo, DeleteTodoSuccess, DeleteTodo } from '../actions/todo.actions';
 import { TodosService } from '../services/todos.service';

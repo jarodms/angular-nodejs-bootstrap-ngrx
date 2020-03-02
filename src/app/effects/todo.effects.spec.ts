@@ -2,21 +2,25 @@ import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable } from 'rxjs';
 
-import { TodoEffects } from './todo.effects';
+import { LoadTodoEffects } from './todo.effects';
+import { HttpClientModule } from '@angular/common/http';
 
-describe('TodoEffects', () => {
+describe('LoadTodoEffects', () => {
   let actions$: Observable<any>;
-  let effects: TodoEffects;
+  let effects: LoadTodoEffects;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        TodoEffects,
+        LoadTodoEffects,
         provideMockActions(() => actions$)
+      ],
+      imports: [
+        HttpClientModule
       ]
     });
 
-    effects = TestBed.get<TodoEffects>(TodoEffects);
+    effects = TestBed.get<LoadTodoEffects>(LoadTodoEffects);
   });
 
   it('should be created', () => {
