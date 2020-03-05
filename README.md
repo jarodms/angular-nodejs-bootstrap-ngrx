@@ -1,5 +1,8 @@
-# Fully contained 'db', server and app
+# Fully contained 'db', server and app, using NgRx.
 This is not meant to be a full. amazing, awesome app....just an example.
+
+Here is a write-up on the differences betwen _this_ NgRx app and the previous, non-NgRx app: http://www.jarodms.com/2020/03/05/angular-app-using-node-json-server-ng-bootstrap-and-ngrx/
+
 
 ## Get Started
 After cloning/downloading source, run:
@@ -39,7 +42,7 @@ Start the Angular app and goto `http://localhost:4200/`
 
 ############################################################
 # ngrx Commands used
-## TODO: more documenation here
+
 `npm install @ngrx/schematics --save-dev`
 
 `npm install @ngrx/store-devtools --save-dev`
