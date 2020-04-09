@@ -19,13 +19,13 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor='let todo of todos; index as i' [ngClass]="{'todo':todo.status === 'todo', 'done':todo.status === 'done' }">
+            <tr *ngFor='let todo of (todos | async); index as i' [ngClass]="{'todo':todo?.status === 'todo', 'done':todo?.status === 'done' }">
                 <td>{{i+1}}</td>
                 <td>{{todo?.title}}</td>
                 <td>{{todo?.description}}</td>
                 <td>{{todo?.status}}</td>
-                <td><button *ngIf="todo.status === 'todo'" id="completeButton" class="btn btn-info" (click)="setComplete(i)">Complete</button></td>
-                <td><button id="delTodoButton" class="btn btn-danger" (click)="deleteTodoById(todo?.id)">Delete</button></td>
+                <td><button *ngIf="todo?.status === 'todo'" id="completeButton" class="btn btn-info" (click)="setComplete(todo)">Complete</button></td>
+                <td><button id="delTodoButton" class="btn btn-danger" (click)="deleteTodoById(todo)">Delete</button></td>
             </tr>
         </tbody>
     </table>

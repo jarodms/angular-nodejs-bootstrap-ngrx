@@ -23,12 +23,12 @@ export class TodosService {
   }
 
   addTodo(todo: Todo) {
-    console.log(todo);
+    // console.log(todo);
     return this.httpClient.post(`${environment.api}/todo`, todo).pipe(catchError(this.handleError));
   }
 
   deleteTodo(todo: Todo) {
-    console.log('deleteTodo service: ' + todo.id);
+    // console.log('deleteTodo service: ' + todo.id);
     return this.httpClient.delete(`${environment.api}/todo/${todo.id}`).pipe(catchError(this.handleError));
   }
 

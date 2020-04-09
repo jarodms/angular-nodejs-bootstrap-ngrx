@@ -1,12 +1,10 @@
 import {
-  ActionReducer,
   ActionReducerMap,
-  createFeatureSelector,
   createSelector,
   MetaReducer
 } from '@ngrx/store';
 import { environment } from '../../environments/environment';
-import { TodoState, todoReducer } from './todos.reducer';
+import { TodoState, reducer } from './todos.reducer';
 
 
 export interface State {
@@ -14,8 +12,14 @@ export interface State {
 }
 
 export const reducers: ActionReducerMap<State> = {
-  todos: todoReducer
+  todos: reducer
 };
 
+export const selectAllTodos = (state: State) => state.todos;
+
+export const selectVisibleTodos = createSelector(
+  selectAllTodos,
+  state => [...state.todos]
+);
 
 export const metaReducers: MetaReducer<State>[] = !environment.production ? [] : [];

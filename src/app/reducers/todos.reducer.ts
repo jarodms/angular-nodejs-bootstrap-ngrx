@@ -1,6 +1,6 @@
-import { Action } from '@ngrx/store';
+import { on, createReducer, Action } from '@ngrx/store';
 import { Todo } from '../Todo';
-import { TodoActionTypes, TodoActions } from '../actions/todo.actions';
+import { loadTodosSuccess, addTodoSuccess, deleteTodoSuccess, completeTodoSuccess } from '../actions/todo.actions';
 
 
 export const todosFeatureKey = 'todos';
@@ -13,34 +13,23 @@ export const initialState: TodoState = {
   todos: []
 };
 
-export function todoReducer(state = initialState, action: TodoActions): TodoState {
-  switch (action.type) {
-    case TodoActionTypes.AddTodo:
-      return {...state, todos: [...state.todos, action.todo]};
+const todoReducer = createReducer(
+  initialState,
+  on(loadTodosSuccess, (state, action) => ({ ...state, todos: action.data })),
+  on(addTodoSuccess, (state, {todo}) => ({ ...state, todos: [...state.todos, todo] })),
+  on(deleteTodoSuccess, (state, {todo}) => ({ ...state, todos: state.todos.filter(item => item.id !== todo.id) })),
+  on(completeTodoSuccess, (state, {todo}) => ({ ...state, todos: state.todos.map(todoItem => {
+      if (todoItem.id === todo.id) {
 
-    case TodoActionTypes.CompleteTodo:
-      // console.log(action.todo);
+        return Object.assign({}, todo, {
+          status: 'done'
+        });
+      }
+      return todoItem;
+    })
+  })),
+);
 
-      return {...state, todos: state.todos.map(todoItem => {
-                    if (todoItem.id === action.todo.id) {
-                      return Object.assign({}, action.todo, {
-                        status: 'done'
-                      });
-                    }
-                    return todoItem;
-                  })
-            };
-
-
-    case TodoActionTypes.DeleteTodo:
-      // console.log(action.todo);
-      return {...state, todos: state.todos.filter(item => item.id !== action.todo.id)};
-
-    case TodoActionTypes.LoadTodosSuccess:
-      // console.log(action.payload);
-      return {...state, todos: [...action.payload.data]};
-
-    default:
-      return state;
-  }
+export function reducer(state: TodoState | undefined, action: Action) {
+  return todoReducer(state, action);
 }

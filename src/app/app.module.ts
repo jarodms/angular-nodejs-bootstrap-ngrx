@@ -10,12 +10,11 @@ import { TodosService } from './services/todos.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from './reducers';
+import { metaReducers, reducers } from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule, Actions } from '@ngrx/effects';
-import { SaveTodoEffects, LoadTodoEffects, DeleteTodoEffects, CompleteTodoEffects } from './effects/todo.effects';
-
+import { LoadTodoEffects } from './effects/todo.effects';
 
 const ROUTES = [
   {
@@ -56,8 +55,8 @@ const ROUTES = [
         strictActionImmutability: true,
       }
     }),
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([SaveTodoEffects, CompleteTodoEffects, LoadTodoEffects, DeleteTodoEffects])
+    EffectsModule.forRoot([LoadTodoEffects]),
+    !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   providers: [TodosService, HttpClient],
   bootstrap: [AppComponent]

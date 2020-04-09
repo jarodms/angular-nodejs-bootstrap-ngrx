@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Todo } from '../Todo';
-import { Store } from '@ngrx/store';
-import { State } from '../reducers';
-import { AddTodo, LoadTodos, CompleteTodo, DeleteTodo } from '../actions/todo.actions';
+import { State, selectVisibleTodos } from '../reducers';
+import { loadTodos, addTodo, deleteTodo, completeTodo } from '../actions/todo.actions';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-todos',
@@ -11,31 +12,33 @@ import { AddTodo, LoadTodos, CompleteTodo, DeleteTodo } from '../actions/todo.ac
 })
 export class TodosComponent implements OnInit {
 
-  todos: Array<Todo>;
+  todos: Observable<Todo[]>;
   newTodo = new Todo();
 
   constructor(private store: Store<State>) {
-    store.select(state => state.todos).subscribe(todos => this.todos = todos.todos);
+    this.todos = store.pipe(select(selectVisibleTodos));
   }
 
   ngOnInit() {
-    this.store.dispatch(new LoadTodos());
+    this.store.dispatch(loadTodos({}));
   }
 
   addToDo() {
     this.newTodo.status = 'todo';
-    this.store.dispatch(new AddTodo(this.newTodo));
+    this.store.dispatch(addTodo({todo: this.newTodo}));
     this.newTodo = new Todo();
   }
 
-  deleteTodoById(id: number) {
-    const theTodo = {...this.todos[id - 1]};
-    this.store.dispatch(new DeleteTodo(theTodo));
+  deleteTodoById(todo: Todo) {
+      const theTodo = {...todo};
+      // console.log(theTodo);
+      this.store.dispatch(deleteTodo({ todo: theTodo}));
   }
 
-  setComplete(index: number) {
-    const theTodo = {...this.todos[index]};
+  setComplete(todo: Todo) {
+    const theTodo = {...todo};
+    // console.log(theTodo);
     theTodo.status = 'done';
-    this.store.dispatch(new CompleteTodo(theTodo));
+    this.store.dispatch(completeTodo({ todo: theTodo}));
   }
 }

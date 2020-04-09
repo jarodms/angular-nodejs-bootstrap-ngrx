@@ -1,81 +1,72 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Observable, of, EMPTY } from 'rxjs';
-import { mergeMap, catchError, map } from 'rxjs/operators';
-import { TodoActionTypes, AddTodo, AddTodoSuccess, LoadTodos, LoadTodosSuccess,
-  LoadTodosFailure, CompleteTodoSuccess, CompleteTodo, DeleteTodoSuccess, DeleteTodo } from '../actions/todo.actions';
+import { Observable, EMPTY } from 'rxjs';
+import { mergeMap, catchError, map, switchMap } from 'rxjs/operators';
+import { loadTodos, loadTodosSuccess, addTodo, addTodoSuccess,
+         deleteTodoSuccess, deleteTodo, completeTodo, completeTodoSuccess } from '../actions/todo.actions';
 import { TodosService } from '../services/todos.service';
 
-@Injectable()
-export class SaveTodoEffects {
-  @Effect()
-  saveCurrentTodos$: Observable<any> = this.actions$.pipe(
-    ofType(TodoActionTypes.AddTodo),
-
-    mergeMap(data =>
-      this.todosService.addTodo(data.todo).pipe(
-        // If successful, dispatch success action with result
-        map(data => new AddTodoSuccess(data)),
-        // If request fails, dispatch failed action
-        catchError(() => EMPTY)
-      )
-    )
-  );
-
-  constructor(private actions$: Actions<AddTodo>, private todosService: TodosService) {}
-}
 
 @Injectable()
 export class LoadTodoEffects {
   @Effect()
   loadCurrentTodos$: Observable<any> = this.actions$.pipe(
-    ofType(TodoActionTypes.LoadTodos),
+    ofType(loadTodos),
     mergeMap(() =>
       this.todosService.getTodos().pipe(
         // If successful, dispatch success action with result
-        map(data => new LoadTodosSuccess({ data })),
-        // If request fails, dispatch failed action
-        catchError(err => of(new LoadTodosFailure(err)))
-      )
-    )
-  );
-
-  constructor(private actions$: Actions<LoadTodos>, private todosService: TodosService) {}
-}
-
-@Injectable()
-export class CompleteTodoEffects {
-  @Effect()
-  completeCurrentTodos$: Observable<any> = this.actions$.pipe(
-    ofType(TodoActionTypes.CompleteTodo),
-    mergeMap(data =>
-      this.todosService.completeTodo(data.todo).pipe(
-        // If successful, dispatch success action with result
-        map(data => new CompleteTodoSuccess({ data })),
+        map(data => loadTodosSuccess({ data })),
         // If request fails, dispatch failed action
         catchError(() => EMPTY)
       )
     )
   );
 
-  constructor(private actions$: Actions<CompleteTodo>, private todosService: TodosService) {}
-}
+  @Effect()
+  saveCurrentTodos$: Observable<any> = this.actions$.pipe(
+    ofType(addTodo),
 
-@Injectable()
-export class DeleteTodoEffects {
+    mergeMap(data =>
+      this.todosService.addTodo(data.todo).pipe(
+        // If successful, dispatch success action with result
+        switchMap(() => [
+          addTodoSuccess({todo: data.todo}),
+          // After adding, re-load because the service adds the ID to the todo
+          //  TODO: Better way?
+          loadTodos({})
+         ]
+        ),
+        // If request fails, dispatch failed action
+        catchError(() => EMPTY)
+      )
+    )
+  );
+
   @Effect()
   deleteCurrentTodos$: Observable<any> = this.actions$.pipe(
-    ofType(TodoActionTypes.DeleteTodo),
-
+    ofType(deleteTodo),
     mergeMap(data =>
       this.todosService.deleteTodo(data.todo).pipe(
         // If successful, dispatch success action with result
-        map(data => new DeleteTodoSuccess(data)),
+        map(() => deleteTodoSuccess({todo: data.todo})),
         // If request fails, dispatch failed action
         catchError(() => EMPTY)
       )
     )
   );
 
-  constructor(private actions$: Actions<DeleteTodo>, private todosService: TodosService) {}
+  @Effect()
+  completeCurrentTodos$: Observable<any> = this.actions$.pipe(
+    ofType(completeTodo),
+    mergeMap(data =>
+      this.todosService.completeTodo(data.todo).pipe(
+        // If successful, dispatch success action with result
+        map(() => completeTodoSuccess({todo: data.todo})),
+        // If request fails, dispatch failed action
+        catchError(() => EMPTY)
+      )
+    )
+  );
+
+  constructor(private actions$: Actions, private todosService: TodosService) {}
 }
