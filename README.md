@@ -1,3 +1,7 @@
+# [UPDATED 04/09/2020]
+**Master** branch was updated to use the newer createAction factory
+To see a different way to implement NgRx with action classes, view the branch _action-class_
+
 # Fully contained 'db', server and app, using NgRx.
 This is not meant to be a full. amazing, awesome app....just an example.
 
